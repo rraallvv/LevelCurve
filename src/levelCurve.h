@@ -11,7 +11,7 @@ typedef struct {
 class LevelCurveAPI
 {
 public:
-	bool debug = true;
+	bool debug;
 	
 	Vec2 interpolation(Vec2 u, Vec2 v, float a) {
 		Vec2 p;
@@ -41,10 +41,9 @@ private:
 	int maxProf = 7;
 	int prof;
 	
-	LevelCurveAPI() {
-		prof = 4;
-		debug = false;
-	};
+	LevelCurveAPI(): prof(4), debug(true)
+	{};
+	
 	LevelCurveAPI(LevelCurveAPI const&);
 	void operator=(LevelCurveAPI const&);
 };
@@ -196,17 +195,4 @@ Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, floa
 {
 	Square zou = Square((Vec2){x, y}, width, height);
 	return Quadtree(zou, equation, LevelCurveAPI::getInstance().getProf());
-}
-
-// iso-surfaces tests
-float surface(Vec2 p) {
-	float x= (p.x-300);
-	float y = (p.y-300);
-	return cos(x/50)*x*x+ y*y - 10000;
-}
-
-float surface2(Vec2 p) {
-	float x= (p.x-300);
-	float y = (p.y-300);
-	return 5*x*x + y*y - 10000;
 }
