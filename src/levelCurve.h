@@ -147,11 +147,9 @@ public:
 	
 	void draw(bool debug)
 	{
-#if 1
 		if (debug) {
 			glColor3f(.5, .5, .5);
 			glBegin(GL_LINE_LOOP);
-			glVertex2f(A.x, A.y);
 			for (int i = 0 ; i < 4 ; ++i) {
 				glVertex2f(primVertices(i).x, primVertices(i).y);
 			}
@@ -160,13 +158,12 @@ public:
 		
 		glColor3f(0, 0, 1);
 		glBegin(GL_LINES);
-		for (int i = 0 ; i < dualVertices.size(); i+=2)
+		for (size_t i = 0 ; i < dualVertices.size(); i+=2)
 		{
 			glVertex2f(dualVertices[i].x, dualVertices[i].y);
 			glVertex2f(dualVertices[i+1].x, dualVertices[i+1].y);
 		}
 		glEnd();
-#endif
 	}
 };
 
