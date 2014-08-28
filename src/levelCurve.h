@@ -12,7 +12,6 @@ class LevelCurveAPI
 {
 public:
 	bool debug = true;
-	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
 	Vec2 interpolation(Vec2 u, Vec2 v, float a) {
 		Vec2 p;
@@ -45,52 +44,6 @@ private:
 	LevelCurveAPI() {
 		prof = 4;
 		debug = false;
-		
-		lookup_edges[0b0000] = std::vector<int>(0);
-		
-		int v1[] = {2, 3};
-		lookup_edges[0b1000] = std::vector<int>(v1, v1 + 2);
-		
-		int v2[] = {1, 2};
-		lookup_edges[0b0100] = std::vector<int>(v2, v2 + 2);
-		
-		int v3[] = {0, 1};
-		lookup_edges[0b0010] = std::vector<int>(v3, v3 + 2);
-		
-		int v4[] = {3, 0};
-		lookup_edges[0b0001] = std::vector<int>(v4, v4 + 2);
-		
-		int v5[] = {1, 3};
-		lookup_edges[0b1100] = std::vector<int>(v5, v5 + 2);
-		
-		int v6[] = {0, 1, 2, 3};
-		lookup_edges[0b1010] = std::vector<int>(v6, v6 + 4);
-		
-		int v7[] = {0, 2};
-		lookup_edges[0b1001] = std::vector<int>(v7, v7 + 2);
-		
-		int v8[] = {0, 2};
-		lookup_edges[0b0110] = std::vector<int>(v8, v8 + 2);
-		
-		int v9[] = {1, 2, 3, 0};
-		lookup_edges[0b0101] = std::vector<int>(v9, v9 + 4);
-		
-		int v10[] = {1, 3};
-		lookup_edges[0b0011] = std::vector<int>(v10, v10 + 2);
-		
-		int v11[] = {3, 0};
-		lookup_edges[0b1110] = std::vector<int>(v11, v11 + 2);
-		
-		int v12[] = {0, 1};
-		lookup_edges[0b1101] = std::vector<int>(v12, v12 + 2);
-		
-		int v13[] = {1, 2};
-		lookup_edges[0b1011] = std::vector<int>(v13, v13 + 2);
-		
-		int v14[] = {2, 3};
-		lookup_edges[0b0111] = std::vector<int>(v14, v14 + 2);
-		
-		lookup_edges[0b1111] = std::vector<int>(0);
 	};
 	LevelCurveAPI(LevelCurveAPI const&);
 	void operator=(LevelCurveAPI const&);
@@ -206,9 +159,7 @@ public:
 	{
 		if (prof > 0)
 		{
-			if (LevelCurveAPI::getInstance().debug) {
-				square.draw();
-			}
+			square.draw();
 			square.preEvaluate(density);
 			// s'il faut splitter
 			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().getProf())
