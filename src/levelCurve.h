@@ -1,6 +1,5 @@
 #include <vector>
 #include <unordered_map>
-#include <string>
 #include <assert.h>
 #include <OpenGL/gl.h>
 
@@ -15,7 +14,7 @@ class LevelCurveAPI
 	
 public:
 	int maxProf = 7;
-	std::unordered_map<std::string, std::vector<int>> lookup_edges;
+	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
 	Vec2 lib_vector(Vec2 u, Vec2 v, float a, float b) {
 		return (Vec2){a*u.x + b*v.x, a*u.y + b*v.y};
@@ -30,51 +29,51 @@ public:
 	
 private:
 	LevelCurveAPI() {
-		lookup_edges["0000"] = std::vector<int>(0);
+		lookup_edges[0b0000] = std::vector<int>(0);
 		
 		int v1[] = {2, 3};
-		lookup_edges["0001"] = std::vector<int>(v1, v1 + 2);
+		lookup_edges[0b1000] = std::vector<int>(v1, v1 + 2);
 		
 		int v2[] = {1, 2};
-		lookup_edges["0010"] = std::vector<int>(v2, v2 + 2);
+		lookup_edges[0b0100] = std::vector<int>(v2, v2 + 2);
 		
 		int v3[] = {0, 1};
-		lookup_edges["0100"] = std::vector<int>(v3, v3 + 2);
+		lookup_edges[0b0010] = std::vector<int>(v3, v3 + 2);
 		
 		int v4[] = {3, 0};
-		lookup_edges["1000"] = std::vector<int>(v4, v4 + 2);
+		lookup_edges[0b0001] = std::vector<int>(v4, v4 + 2);
 		
 		int v5[] = {1, 3};
-		lookup_edges["0011"] = std::vector<int>(v5, v5 + 2);
+		lookup_edges[0b1100] = std::vector<int>(v5, v5 + 2);
 		
 		int v6[] = {0, 1, 2, 3};
-		lookup_edges["0101"] = std::vector<int>(v6, v6 + 4);
+		lookup_edges[0b1010] = std::vector<int>(v6, v6 + 4);
 		
 		int v7[] = {0, 2};
-		lookup_edges["1001"] = std::vector<int>(v7, v7 + 2);
+		lookup_edges[0b1001] = std::vector<int>(v7, v7 + 2);
 		
 		int v8[] = {0, 2};
-		lookup_edges["0110"] = std::vector<int>(v8, v8 + 2);
+		lookup_edges[0b0110] = std::vector<int>(v8, v8 + 2);
 		
 		int v9[] = {1, 2, 3, 0};
-		lookup_edges["1010"] = std::vector<int>(v9, v9 + 4);
+		lookup_edges[0b0101] = std::vector<int>(v9, v9 + 4);
 		
 		int v10[] = {1, 3};
-		lookup_edges["1100"] = std::vector<int>(v10, v10 + 2);
+		lookup_edges[0b0011] = std::vector<int>(v10, v10 + 2);
 		
 		int v11[] = {3, 0};
-		lookup_edges["0111"] = std::vector<int>(v11, v11 + 2);
+		lookup_edges[0b1110] = std::vector<int>(v11, v11 + 2);
 		
 		int v12[] = {0, 1};
-		lookup_edges["1011"] = std::vector<int>(v12, v12 + 2);
+		lookup_edges[0b1101] = std::vector<int>(v12, v12 + 2);
 		
 		int v13[] = {1, 2};
-		lookup_edges["1101"] = std::vector<int>(v13, v13 + 2);
+		lookup_edges[0b1011] = std::vector<int>(v13, v13 + 2);
 		
 		int v14[] = {2, 3};
-		lookup_edges["1110"] = std::vector<int>(v14, v14 + 2);
+		lookup_edges[0b0111] = std::vector<int>(v14, v14 + 2);
 		
-		lookup_edges["1111"] = std::vector<int>(0);
+		lookup_edges[0b1111] = std::vector<int>(0);
 	};                   // Constructor? (the {} brackets) are needed here.
 	// Dont forget to declare these two. You want to make sure they
 	// are unaccessable otherwise you may accidently get copies of
@@ -108,7 +107,7 @@ public:
 		}
 	}
 	
-	std::string edgesValue = "";
+	int edgesValue = -1;
 	
 	Square(Vec2 A, float deltaX, float deltaY)
 	:A(A), deltaX(deltaX), deltaY(deltaY)
@@ -118,10 +117,11 @@ public:
 	void preEvaluate(float (*density)(Vec2))
 	{
 		if (!preEvaluated) {
+			edgesValue = 0;
 			for (int i = 0 ; i < 4; ++i) {
 				float zde = density(primVertices(i));
 				coeff[i] = zde;
-				edgesValue += (zde < 0) ? '1' : '0';
+				edgesValue += (zde < 0 ? 1 : 0) << i;
 			}
 			preEvaluated = true;
 		}
@@ -130,7 +130,7 @@ public:
 	void evaluate(float (*density)(Vec2)) {
 		preEvaluate(density);
 		std::vector<int> ed = LevelCurveAPI::getInstance().lookup_edges[edgesValue];
-		for (int i = 0 ; i < ed.size(); i++)
+		for (size_t i = 0 ; i < ed.size(); i++)
 		{
 			// interest point
 			int from = ed[i];
@@ -192,7 +192,7 @@ public:
 			}
 			square.preEvaluate(density);
 			// s'il faut splitter
-			if ((square.edgesValue.compare("0000") != 0 && square.edgesValue.compare("1111") != 0) || prof == LevelCurveAPI::getInstance().maxProf)
+			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().maxProf)
 			{
 				Vec2 a = square.primVertices(0);
 				float dx = square.deltaX * 0.5;
