@@ -12,7 +12,6 @@ class LevelCurveAPI
 {
 public:
 	bool debug = false;
-	int maxProf = 7;
 	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
 	Vec2 interpolation(Vec2 u, Vec2 v, float a) {
@@ -29,8 +28,23 @@ public:
 		return instance;
 	}
 	
+	void setProf(int p) {
+		if (p > maxProf) prof = 0;
+		else if (p < 0) prof = maxProf;
+		else prof = p;
+	}
+	
+	int getProf() {
+		return prof;
+	}
+	
 private:
+	int maxProf = 7;
+	int prof;
+	
 	LevelCurveAPI() {
+		prof = maxProf;
+		
 		lookup_edges[0b0000] = std::vector<int>(0);
 		
 		int v1[] = {2, 3};
@@ -192,7 +206,7 @@ public:
 			}
 			square.preEvaluate(density);
 			// s'il faut splitter
-			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().maxProf)
+			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().getProf())
 			{
 				Vec2 a = square.primVertices(0);
 				float dx = square.deltaX * 0.5;
@@ -218,13 +232,10 @@ public:
 	}
 };
 
-Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, float height, int prof = 0)
+Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, float height)
 {
-	if (prof != 0) {
-		LevelCurveAPI::getInstance().maxProf = prof;
-	}
 	Square zou = Square((Vec2){x, y}, width, height);
-	return Quadtree(zou, equation, LevelCurveAPI::getInstance().maxProf);
+	return Quadtree(zou, equation, LevelCurveAPI::getInstance().getProf());
 }
 
 // iso-surfaces tests

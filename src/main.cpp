@@ -29,7 +29,7 @@ void display() {
 	glRasterPos2d(600*0.01,600*0.97);
 	drawFPS();
 	
-	levelCurve(surface, 0, 0, 600, 600, 5);
+	levelCurve(surface, 0, 0, 600, 600);
 	
 	glutSwapBuffers();
 }
@@ -43,6 +43,14 @@ void keyboard( unsigned char key, int x, int y ) {
 		case 'd':
 		case 'D':
 			LevelCurveAPI::getInstance().debug = !LevelCurveAPI::getInstance().debug;
+			break;
+			
+		case '+':
+			LevelCurveAPI::getInstance().setProf(LevelCurveAPI::getInstance().getProf()+1);
+			break;
+			
+		case '-':
+			LevelCurveAPI::getInstance().setProf(LevelCurveAPI::getInstance().getProf()-1);
 			break;
 			
 		default:
