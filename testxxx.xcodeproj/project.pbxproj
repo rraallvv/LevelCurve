@@ -10,7 +10,6 @@
 		E460EE2119AED0FB003D3D0F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E460EE2019AED0FB003D3D0F /* OpenGL.framework */; };
 		E460EE2319AED0FB003D3D0F /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E460EE2219AED0FB003D3D0F /* GLUT.framework */; };
 		E460EE2719AED0FB003D3D0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E460EE2619AED0FB003D3D0F /* main.cpp */; };
-		E460EE2919AED0FB003D3D0F /* testxxx.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = E460EE2819AED0FB003D3D0F /* testxxx.1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -20,7 +19,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				E460EE2919AED0FB003D3D0F /* testxxx.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -32,7 +30,14 @@
 		E460EE2219AED0FB003D3D0F /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		E460EE2519AED0FB003D3D0F /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		E460EE2619AED0FB003D3D0F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E460EE2819AED0FB003D3D0F /* testxxx.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = testxxx.1; sourceTree = "<group>"; };
+		E460EE3119AED179003D3D0F /* Context.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Context.js; sourceTree = "<group>"; };
+		E460EE3219AED179003D3D0F /* lib_vector.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = lib_vector.js; sourceTree = "<group>"; };
+		E460EE3319AED179003D3D0F /* lookup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = lookup.js; sourceTree = "<group>"; };
+		E460EE3419AED179003D3D0F /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		E460EE3519AED179003D3D0F /* Quadtree.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Quadtree.js; sourceTree = "<group>"; };
+		E460EE3619AED179003D3D0F /* SPACEGOOLevelCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPACEGOOLevelCurve.h; sourceTree = "<group>"; };
+		E460EE3719AED179003D3D0F /* Square.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Square.js; sourceTree = "<group>"; };
+		E460EE3919AED18A003D3D0F /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +82,26 @@
 		E460EE2419AED0FB003D3D0F /* testxxx */ = {
 			isa = PBXGroup;
 			children = (
+				E460EE3019AED179003D3D0F /* js */,
 				E460EE2519AED0FB003D3D0F /* utils.h */,
 				E460EE2619AED0FB003D3D0F /* main.cpp */,
-				E460EE2819AED0FB003D3D0F /* testxxx.1 */,
+				E460EE3919AED18A003D3D0F /* README */,
 			);
 			path = testxxx;
+			sourceTree = "<group>";
+		};
+		E460EE3019AED179003D3D0F /* js */ = {
+			isa = PBXGroup;
+			children = (
+				E460EE3119AED179003D3D0F /* Context.js */,
+				E460EE3219AED179003D3D0F /* lib_vector.js */,
+				E460EE3319AED179003D3D0F /* lookup.js */,
+				E460EE3419AED179003D3D0F /* main.js */,
+				E460EE3519AED179003D3D0F /* Quadtree.js */,
+				E460EE3619AED179003D3D0F /* SPACEGOOLevelCurve.h */,
+				E460EE3719AED179003D3D0F /* Square.js */,
+			);
+			path = js;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +189,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -202,6 +223,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;

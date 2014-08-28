@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 Rhody Lugo. All rights reserved.
 //
 
+#include "SPACEGOOLevelCurve.h"
+/*
+ <script type='text/javascript' src='js/main.js'></script>
+ */
+
 #include <iostream>
 #include <GLUT/GLUT.h>
 #include <OpenGL/OpenGL.h>
@@ -63,7 +68,7 @@ int main(int argc, char * argv[]) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GL_DOUBLE);
 	glutInitWindowPosition ( 100, 100 );
-	glutInitWindowSize ( 500, 500 );
+	glutInitWindowSize ( 600, 600 );
 	glutCreateWindow(argv[0]);
 
 	CGLContextObj context = CGLGetCurrentContext();
