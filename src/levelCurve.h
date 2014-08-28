@@ -11,7 +11,7 @@ typedef struct {
 class LevelCurveAPI
 {
 public:
-	bool debug = false;
+	bool debug = true;
 	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
 	Vec2 interpolation(Vec2 u, Vec2 v, float a) {

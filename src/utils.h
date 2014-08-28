@@ -1,11 +1,3 @@
-//
-//  utils.h
-//  testxxx
-//
-//  Created by Rhody Lugo on 8/27/14.
-//  Copyright (c) 2014 Rhody Lugo. All rights reserved.
-//
-
 #include <GLUT/GLUT.h>
 #include <sys/time.h>
 
