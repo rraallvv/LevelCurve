@@ -113,17 +113,16 @@ public:
 		}
 	}
 	
-	void draw()
-	{
-		if (LevelCurveAPI::getInstance().debug) {
-			glColor3f(.5, .5, .5);
-			glBegin(GL_LINE_LOOP);
-			for (int i = 0 ; i < 4 ; ++i) {
-				glVertex2f(primVertices(i).x, primVertices(i).y);
-			}
-			glEnd();
+	void drawEdges() {
+		glColor3f(.5, .5, .5);
+		glBegin(GL_LINE_LOOP);
+		for (int i = 0 ; i < 4 ; ++i) {
+			glVertex2f(primVertices(i).x, primVertices(i).y);
 		}
-		
+		glEnd();
+	}
+	
+	void draw() {
 		glColor3f(0, 0, 1);
 		glPolygonMode (GL_FRONT_AND_BACK, GL_FILL);
 		glBegin(GL_POLYGON);
@@ -157,9 +156,11 @@ public:
 	Quadtree(Square square, float (*density)(Vec2), int prof)
 	:square(square), prof(prof)
 	{
+		if (LevelCurveAPI::getInstance().debug)
+			square.drawEdges();
+		
 		if (prof > 0)
 		{
-			square.draw();
 			square.preEvaluate(density);
 			// s'il faut splitter
 			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().getProf())
@@ -179,6 +180,9 @@ public:
 				childs.push_back(topRight);
 				childs.push_back(bottomLeft);
 				childs.push_back(bottomRight);
+			} else if (square.edgesValue == 0b1111) {
+				square.evaluate(density);
+				square.draw();
 			}
 		} // sinon on dessine
 		else {
