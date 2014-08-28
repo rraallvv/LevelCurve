@@ -43,7 +43,8 @@ private:
 	int prof;
 	
 	LevelCurveAPI() {
-		prof = maxProf;
+		prof = 4;
+		debug = false;
 		
 		lookup_edges[0b0000] = std::vector<int>(0);
 		
@@ -142,11 +143,10 @@ public:
 	
 	void evaluate(float (*density)(Vec2)) {
 		preEvaluate(density);
-		std::vector<int> ed = LevelCurveAPI::getInstance().lookup_edges[edgesValue];
-		for (size_t i = 0 ; i < ed.size(); i++)
+		for (int i = 0 ; i < 4; i++)
 		{
 			// interest point
-			int from = ed[i];
+			int from = i;
 			int to = (from < 3) ? from+1 : 0;
 			// calculate cross position
 			float c1 = coeff[from];
@@ -155,7 +155,8 @@ public:
 			Vec2 p1 = primVertices(from);
 			Vec2 p2 = primVertices(to);
 			// building edge :
-			dualVertices.push_back(LevelCurveAPI::getInstance().interpolation(p1, p2, a));
+			if (c1<0) dualVertices.push_back(p1);
+			if (c1*c2<0) dualVertices.push_back(LevelCurveAPI::getInstance().interpolation(p1, p2, a));
 		}
 	}
 	
@@ -171,12 +172,16 @@ public:
 		}
 		
 		glColor3f(0, 0, 1);
-		glBegin(GL_LINES);
-		for (size_t i = 0 ; i < dualVertices.size(); i+=2)
-		{
+		glPolygonMode (GL_FRONT_AND_BACK, GL_FILL);
+		glBegin(GL_POLYGON);
+		for (size_t i = 0 ; i < dualVertices.size(); ++i)
 			glVertex2f(dualVertices[i].x, dualVertices[i].y);
-			glVertex2f(dualVertices[i+1].x, dualVertices[i+1].y);
-		}
+		glEnd();
+		
+		glColor3f(0, 1, 0);
+		glBegin(GL_LINE_LOOP);
+		for (size_t i = 0 ; i < dualVertices.size(); ++i)
+			glVertex2f(dualVertices[i].x, dualVertices[i].y);
 		glEnd();
 	}
 };

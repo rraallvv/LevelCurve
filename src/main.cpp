@@ -15,17 +15,8 @@ void display() {
 	glOrtho(-5, 605, -5, 605, -1, 1);
 	
 	glClear(GL_COLOR_BUFFER_BIT);
-	
+		
 	glColor3f(1, 1, 1);
-	
-	glBegin(GL_POLYGON);
-	glVertex2f(0, 0);
-	glVertex2f(600, 0);
-	glVertex2f(600, 600);
-	glVertex2f(0, 600);
-	glEnd();
-	
-	glColor3f(0, 0, 0);
 	glRasterPos2d(600*0.01,600*0.97);
 	drawFPS();
 	
