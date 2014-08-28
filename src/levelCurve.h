@@ -11,7 +11,7 @@ typedef struct {
 class LevelCurveAPI
 {
 public:
-	bool debug;
+	bool debug = true;
 	
 	Vec2 interpolation(Vec2 u, Vec2 v, float a) {
 		Vec2 p;
@@ -27,21 +27,32 @@ public:
 		return instance;
 	}
 	
-	void setProf(int p) {
-		if (p > maxProf) prof = 0;
-		else if (p < 0) prof = maxProf;
-		else prof = p;
+	void addProf() {
+		prof++;
+		if (prof > maxProf)
+			prof = maxProf;
+	}
+	
+	void subProf() {
+		prof--;
+		if (prof < minProf)
+			prof = minProf;
 	}
 	
 	int getProf() {
 		return prof;
 	}
 	
+	int getMaxProf() {
+		return maxProf;
+	}
+	
 private:
 	int maxProf = 7;
-	int prof;
+	int minProf = 1;
+	int prof = 4;
 	
-	LevelCurveAPI(): prof(4), debug(true)
+	LevelCurveAPI()
 	{};
 	
 	LevelCurveAPI(LevelCurveAPI const&);
@@ -152,18 +163,18 @@ class Quadtree {
 	int prof;
 	
 public:
-	Quadtree(Square square, float (*density)(Vec2), int prof)
+	Quadtree(Square square, float (*density)(Vec2), int prof = 0)
 	:square(square), prof(prof)
 	{
 		if (LevelCurveAPI::getInstance().debug)
 			square.drawEdges();
 		
-		if (prof > 0)
+		if (prof < LevelCurveAPI::getInstance().getProf())
 		{
 			square.preEvaluate(density);
 			// s'il faut splitter
 			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) ||
-				prof == LevelCurveAPI::getInstance().getProf())
+				prof == 0)
 			{
 				Vec2 a = square.primVertices(0);
 				float dx = square.deltaX * 0.5;
@@ -172,10 +183,10 @@ public:
 				Square tr = Square((Vec2){a.x + dx, a.y}, dx, dy);
 				Square bl = Square((Vec2){a.x, a.y+dy}, dx, dy);
 				Square br = Square((Vec2){a.x + dx, a.y+dy}, dx, dy);
-				Quadtree topLeft = Quadtree(tl, density, prof-1);
-				Quadtree topRight = Quadtree(tr, density, prof-1);
-				Quadtree bottomRight = Quadtree(br, density, prof-1);
-				Quadtree bottomLeft = Quadtree(bl, density, prof-1);
+				Quadtree topLeft = Quadtree(tl, density, prof+1);
+				Quadtree topRight = Quadtree(tr, density, prof+1);
+				Quadtree bottomRight = Quadtree(br, density, prof+1);
+				Quadtree bottomLeft = Quadtree(bl, density, prof+1);
 				childs.push_back(topLeft);
 				childs.push_back(topRight);
 				childs.push_back(bottomLeft);
@@ -195,5 +206,5 @@ public:
 Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, float height)
 {
 	Square zou = Square((Vec2){x, y}, width, height);
-	return Quadtree(zou, equation, LevelCurveAPI::getInstance().getProf());
+	return Quadtree(zou, equation);
 }

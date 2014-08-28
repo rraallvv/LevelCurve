@@ -31,7 +31,7 @@ void idle() {
 }
 
 void display() {
-	t += 1.0e-2;
+	t += 1.0e-3;
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -39,7 +39,7 @@ void display() {
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	levelCurve(surface3, 0, 0, 600, 600);
+	levelCurve(surface, 0, 0, 600, 600);
 	
 	glColor3f(1, 1, 1);
 	glRasterPos2d(600*0.01,600*0.97);
@@ -60,11 +60,11 @@ void keyboard( unsigned char key, int x, int y ) {
 			break;
 			
 		case '+':
-			LevelCurveAPI::getInstance().setProf(LevelCurveAPI::getInstance().getProf()+1);
+			LevelCurveAPI::getInstance().addProf();
 			break;
 			
 		case '-':
-			LevelCurveAPI::getInstance().setProf(LevelCurveAPI::getInstance().getProf()-1);
+			LevelCurveAPI::getInstance().subProf();
 			break;
 			
 		default:
