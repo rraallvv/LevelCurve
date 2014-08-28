@@ -10,14 +10,15 @@ typedef struct {
 
 class LevelCurveAPI
 {
-	bool debug = false;
-	
 public:
 	int maxProf = 7;
 	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
-	Vec2 lib_vector(Vec2 u, Vec2 v, float a, float b) {
-		return (Vec2){a*u.x + b*v.x, a*u.y + b*v.y};
+	Vec2 interpolation(Vec2 u, Vec2 v, float a) {
+		Vec2 p;
+		p.x = (1.0-a)*u.x+a*v.x;
+		p.y = (1.0-a)*u.y+a*v.y;
+		return p;
 	}
 	
 	static LevelCurveAPI& getInstance()
@@ -28,6 +29,8 @@ public:
 	}
 	
 private:
+	bool debug = false;
+	
 	LevelCurveAPI() {
 		lookup_edges[0b0000] = std::vector<int>(0);
 		
@@ -74,12 +77,9 @@ private:
 		lookup_edges[0b0111] = std::vector<int>(v14, v14 + 2);
 		
 		lookup_edges[0b1111] = std::vector<int>(0);
-	};                   // Constructor? (the {} brackets) are needed here.
-	// Dont forget to declare these two. You want to make sure they
-	// are unaccessable otherwise you may accidently get copies of
-	// your singleton appearing.
-	LevelCurveAPI(LevelCurveAPI const&);              // Don't Implement
-	void operator=(LevelCurveAPI const&); // Don't implement
+	};
+	LevelCurveAPI(LevelCurveAPI const&);
+	void operator=(LevelCurveAPI const&);
 };
 
 class Square {
@@ -135,13 +135,14 @@ public:
 			// interest point
 			int from = ed[i];
 			int to = (from < 3) ? from+1 : 0;
-			// coeffs
-			float c1 = abs(coeff[from]);
-			float c2 = abs(coeff[to]);
-			float a = c1 / (c1 + c2);
-			float b = c2 / (c1 + c2);
+			// calculate cross position
+			float c1 = coeff[from];
+			float c2 = coeff[to];
+			float a = c1/(c1-c2);
+			Vec2 p1 = primVertices(from);
+			Vec2 p2 = primVertices(to);
 			// building edge :
-			dualVertices.push_back(LevelCurveAPI::getInstance().lib_vector(primVertices(from), primVertices(to), b, a));
+			dualVertices.push_back(LevelCurveAPI::getInstance().interpolation(p1, p2, a));
 		}
 	}
 	
