@@ -18,12 +18,12 @@ float surface2(Vec2 p) {
 	return 5*x*x + y*y - 10000;
 }
 
+static float t = 0;
+
 float surface3(Vec2 p) {
 	float x= (p.x-300);
 	float y = (p.y-300);
-	static float t = 0;
-	t += 1.0e-7;
-	return sin(x/50+y/50+t);
+	return cos(x/100+y/150+t);
 }
 
 void idle() {
@@ -31,17 +31,19 @@ void idle() {
 }
 
 void display() {
+	t += 1.0e-2;
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-5, 605, -5, 605, -1, 1);
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	
+	levelCurve(surface3, 0, 0, 600, 600);
+	
 	glColor3f(1, 1, 1);
 	glRasterPos2d(600*0.01,600*0.97);
 	drawFPS();
-	
-	levelCurve(surface3, 0, 0, 600, 600);
 	
 	glutSwapBuffers();
 }
@@ -86,9 +88,11 @@ int main(int argc, char * argv[]) {
 	glutInitWindowSize ( 600, 600 );
 	glutCreateWindow(argv[0]);
 	
+#if 0
 	CGLContextObj context = CGLGetCurrentContext();
 	const GLint SYNC_TO_REFRESH = 0;
 	CGLSetParameter(context, kCGLCPSwapInterval, &SYNC_TO_REFRESH);
+#endif
 	
 	glutIdleFunc(idle);
 	glutKeyboardFunc(keyboard);

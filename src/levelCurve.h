@@ -162,7 +162,8 @@ public:
 		{
 			square.preEvaluate(density);
 			// s'il faut splitter
-			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) || prof == LevelCurveAPI::getInstance().getProf())
+			if ((square.edgesValue != 0b0000 && square.edgesValue != 0b1111) ||
+				prof == LevelCurveAPI::getInstance().getProf())
 			{
 				Vec2 a = square.primVertices(0);
 				float dx = square.deltaX * 0.5;
