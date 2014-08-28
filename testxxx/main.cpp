@@ -20,25 +20,25 @@ void idle() {
 void display() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, 1, 0, 1, -1, 1);
+	glOrtho(-5, 605, -5, 605, -1, 1);
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glColor3f(1, 1, 1);
 
 	glBegin(GL_POLYGON);
-	glVertex2f(0.25, 0.25);
-	glVertex2f(0.75, 0.25);
-	glVertex2f(0.75, 0.75);
-	glVertex2f(0.25, 0.75);
+	glVertex2f(600*0.25, 600*0.25);
+	glVertex2f(600*0.75, 600*0.25);
+	glVertex2f(600*0.75, 600*0.75);
+	glVertex2f(600*0.25, 600*0.75);
 	glEnd();
 
 	glColor3f(0, 0, 0);
-	glRasterPos2d(0.32,0.48);
+	glRasterPos2d(600*0.32,600*0.48);
 	drawStr("HELLO WORLD!", GLUT_BITMAP_TIMES_ROMAN_24);
 
 	glColor3f(1, 1, 1);
-	glRasterPos2d(0.0,0.97);
+	glRasterPos2d(600*0.0,600*0.97);
 	drawFPS();
 	
 	levelCurve(surface, 0, 0, 600, 600, 5, true);
