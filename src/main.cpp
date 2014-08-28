@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  testxxx
-//
-//  Created by Rhody Lugo on 8/27/14.
-//  Copyright (c) 2014 Rhody Lugo. All rights reserved.
-//
-
 #include "levelCurve.h"
 
 #include <iostream>
@@ -21,24 +13,20 @@ void display() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-5, 605, -5, 605, -1, 1);
-
+	
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	
 	glColor3f(1, 1, 1);
-
+	
 	glBegin(GL_POLYGON);
-	glVertex2f(600*0.25, 600*0.25);
-	glVertex2f(600*0.75, 600*0.25);
-	glVertex2f(600*0.75, 600*0.75);
-	glVertex2f(600*0.25, 600*0.75);
+	glVertex2f(0, 0);
+	glVertex2f(600, 0);
+	glVertex2f(600, 600);
+	glVertex2f(0, 600);
 	glEnd();
-
+	
 	glColor3f(0, 0, 0);
-	glRasterPos2d(600*0.32,600*0.48);
-	drawStr("HELLO WORLD!", GLUT_BITMAP_TIMES_ROMAN_24);
-
-	glColor3f(1, 1, 1);
-	glRasterPos2d(600*0.0,600*0.97);
+	glRasterPos2d(600*0.01,600*0.97);
 	drawFPS();
 	
 	levelCurve(surface, 0, 0, 600, 600, 5, true);
@@ -72,11 +60,11 @@ int main(int argc, char * argv[]) {
 	glutInitWindowPosition ( 100, 100 );
 	glutInitWindowSize ( 600, 600 );
 	glutCreateWindow(argv[0]);
-
+	
 	CGLContextObj context = CGLGetCurrentContext();
 	const GLint SYNC_TO_REFRESH = 0;
 	CGLSetParameter(context, kCGLCPSwapInterval, &SYNC_TO_REFRESH);
-
+	
 	glutIdleFunc(idle);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouse);
