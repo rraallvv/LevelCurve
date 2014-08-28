@@ -40,7 +40,7 @@ void display() {
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	levelCurve(surface, 0, 0, 600, 600);
+	levelCurve(surface3, 0, 0, 600, 600);
 	
 	glColor3f(1, 1, 1);
 	glRasterPos2d(600*0.01,600*0.97);
