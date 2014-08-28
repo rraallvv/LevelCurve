@@ -6,10 +6,7 @@
 //  Copyright (c) 2014 Rhody Lugo. All rights reserved.
 //
 
-#include "SPACEGOOLevelCurve.h"
-/*
- <script type='text/javascript' src='js/main.js'></script>
- */
+#include "levelCurve.h"
 
 #include <iostream>
 #include <GLUT/GLUT.h>
@@ -43,7 +40,9 @@ void display() {
 	glColor3f(1, 1, 1);
 	glRasterPos2d(0.0,0.97);
 	drawFPS();
-
+	
+	levelCurve(surface, 0, 0, 600, 600, 5, true);
+	
 	glutSwapBuffers();
 }
 
@@ -64,7 +63,10 @@ void mouse ( int button, int state, int x, int y ) {
 void motion ( int x, int y ) {
 }
 
+Quadtree *gCurve;
+
 int main(int argc, char * argv[]) {
+	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GL_DOUBLE);
 	glutInitWindowPosition ( 100, 100 );
