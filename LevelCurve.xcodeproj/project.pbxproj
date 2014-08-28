@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E460EE2119AED0FB003D3D0F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E460EE2019AED0FB003D3D0F /* OpenGL.framework */; };
 		E460EE2319AED0FB003D3D0F /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E460EE2219AED0FB003D3D0F /* GLUT.framework */; };
-		E460EE2719AED0FB003D3D0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E460EE2619AED0FB003D3D0F /* main.cpp */; };
+		E460EE4019AEF4E3003D3D0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E460EE3D19AEF4E3003D3D0F /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,13 +25,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E460EE1D19AED0FB003D3D0F /* testxxx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testxxx; sourceTree = BUILT_PRODUCTS_DIR; };
+		E460EE1D19AED0FB003D3D0F /* LevelCurve */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevelCurve; sourceTree = BUILT_PRODUCTS_DIR; };
 		E460EE2019AED0FB003D3D0F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E460EE2219AED0FB003D3D0F /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		E460EE2519AED0FB003D3D0F /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		E460EE2619AED0FB003D3D0F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E460EE3919AED18A003D3D0F /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		E460EE3A19AEE69D003D3D0F /* levelCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelCurve.h; sourceTree = "<group>"; };
+		E460EE3C19AEF4E3003D3D0F /* levelCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelCurve.h; sourceTree = "<group>"; };
+		E460EE3D19AEF4E3003D3D0F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E460EE3E19AEF4E3003D3D0F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		E460EE3F19AEF4E3003D3D0F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 		E460EE1419AED0FB003D3D0F = {
 			isa = PBXGroup;
 			children = (
-				E460EE2419AED0FB003D3D0F /* testxxx */,
+				E460EE3B19AEF4E3003D3D0F /* src */,
 				E460EE1F19AED0FB003D3D0F /* Frameworks */,
 				E460EE1E19AED0FB003D3D0F /* Products */,
 			);
@@ -59,7 +59,7 @@
 		E460EE1E19AED0FB003D3D0F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E460EE1D19AED0FB003D3D0F /* testxxx */,
+				E460EE1D19AED0FB003D3D0F /* LevelCurve */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,23 +73,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E460EE2419AED0FB003D3D0F /* testxxx */ = {
+		E460EE3B19AEF4E3003D3D0F /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E460EE3A19AEE69D003D3D0F /* levelCurve.h */,
-				E460EE2519AED0FB003D3D0F /* utils.h */,
-				E460EE2619AED0FB003D3D0F /* main.cpp */,
-				E460EE3919AED18A003D3D0F /* README */,
+				E460EE3C19AEF4E3003D3D0F /* levelCurve.h */,
+				E460EE3D19AEF4E3003D3D0F /* main.cpp */,
+				E460EE3E19AEF4E3003D3D0F /* README */,
+				E460EE3F19AEF4E3003D3D0F /* utils.h */,
 			);
-			path = testxxx;
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E460EE1C19AED0FB003D3D0F /* testxxx */ = {
+		E460EE1C19AED0FB003D3D0F /* LevelCurve */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E460EE2C19AED0FB003D3D0F /* Build configuration list for PBXNativeTarget "testxxx" */;
+			buildConfigurationList = E460EE2C19AED0FB003D3D0F /* Build configuration list for PBXNativeTarget "LevelCurve" */;
 			buildPhases = (
 				E460EE1919AED0FB003D3D0F /* Sources */,
 				E460EE1A19AED0FB003D3D0F /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = testxxx;
+			name = LevelCurve;
 			productName = testxxx;
-			productReference = E460EE1D19AED0FB003D3D0F /* testxxx */;
+			productReference = E460EE1D19AED0FB003D3D0F /* LevelCurve */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -113,7 +113,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Rhody Lugo";
 			};
-			buildConfigurationList = E460EE1819AED0FB003D3D0F /* Build configuration list for PBXProject "testxxx" */;
+			buildConfigurationList = E460EE1819AED0FB003D3D0F /* Build configuration list for PBXProject "LevelCurve" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E460EE1C19AED0FB003D3D0F /* testxxx */,
+				E460EE1C19AED0FB003D3D0F /* LevelCurve */,
 			);
 		};
 /* End PBXProject section */
@@ -135,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E460EE2719AED0FB003D3D0F /* main.cpp in Sources */,
+				E460EE4019AEF4E3003D3D0F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,21 +217,21 @@
 		E460EE2D19AED0FB003D3D0F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LevelCurve;
 			};
 			name = Debug;
 		};
 		E460EE2E19AED0FB003D3D0F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LevelCurve;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E460EE1819AED0FB003D3D0F /* Build configuration list for PBXProject "testxxx" */ = {
+		E460EE1819AED0FB003D3D0F /* Build configuration list for PBXProject "LevelCurve" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E460EE2A19AED0FB003D3D0F /* Debug */,
@@ -240,13 +240,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E460EE2C19AED0FB003D3D0F /* Build configuration list for PBXNativeTarget "testxxx" */ = {
+		E460EE2C19AED0FB003D3D0F /* Build configuration list for PBXNativeTarget "LevelCurve" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E460EE2D19AED0FB003D3D0F /* Debug */,
 				E460EE2E19AED0FB003D3D0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
