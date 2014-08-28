@@ -11,6 +11,7 @@ typedef struct {
 class LevelCurveAPI
 {
 public:
+	bool debug = false;
 	int maxProf = 7;
 	std::unordered_map<int, std::vector<int>> lookup_edges;
 	
@@ -29,8 +30,6 @@ public:
 	}
 	
 private:
-	bool debug = false;
-	
 	LevelCurveAPI() {
 		lookup_edges[0b0000] = std::vector<int>(0);
 		
@@ -146,9 +145,9 @@ public:
 		}
 	}
 	
-	void draw(bool debug)
+	void draw()
 	{
-		if (debug) {
+		if (LevelCurveAPI::getInstance().debug) {
 			glColor3f(.5, .5, .5);
 			glBegin(GL_LINE_LOOP);
 			for (int i = 0 ; i < 4 ; ++i) {
@@ -183,13 +182,13 @@ class Quadtree {
 	int prof;
 	
 public:
-	Quadtree(Square square, float (*density)(Vec2), int prof, bool debug)
+	Quadtree(Square square, float (*density)(Vec2), int prof)
 	:square(square), prof(prof)
 	{
 		if (prof > 0)
 		{
-			if (debug) {
-				square.draw(true);
+			if (LevelCurveAPI::getInstance().debug) {
+				square.draw();
 			}
 			square.preEvaluate(density);
 			// s'il faut splitter
@@ -202,10 +201,10 @@ public:
 				Square tr = Square((Vec2){a.x + dx, a.y}, dx, dy);
 				Square bl = Square((Vec2){a.x, a.y+dy}, dx, dy);
 				Square br = Square((Vec2){a.x + dx, a.y+dy}, dx, dy);
-				Quadtree topLeft = Quadtree(tl, density, prof-1, debug);
-				Quadtree topRight = Quadtree(tr, density, prof-1, debug);
-				Quadtree bottomRight = Quadtree(br, density, prof-1, debug);
-				Quadtree bottomLeft = Quadtree(bl, density, prof-1, debug);
+				Quadtree topLeft = Quadtree(tl, density, prof-1);
+				Quadtree topRight = Quadtree(tr, density, prof-1);
+				Quadtree bottomRight = Quadtree(br, density, prof-1);
+				Quadtree bottomLeft = Quadtree(bl, density, prof-1);
 				childs.push_back(topLeft);
 				childs.push_back(topRight);
 				childs.push_back(bottomLeft);
@@ -214,18 +213,18 @@ public:
 		} // sinon on dessine
 		else {
 			square.evaluate(density);
-			square.draw(debug);
+			square.draw();
 		}
 	}
 };
 
-Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, float height, int prof = 0, bool debug = false)
+Quadtree levelCurve(float (*equation)(Vec2), float x, float y, float width, float height, int prof = 0)
 {
 	if (prof != 0) {
 		LevelCurveAPI::getInstance().maxProf = prof;
 	}
 	Square zou = Square((Vec2){x, y}, width, height);
-	return Quadtree(zou, equation, LevelCurveAPI::getInstance().maxProf, debug);
+	return Quadtree(zou, equation, LevelCurveAPI::getInstance().maxProf);
 }
 
 // iso-surfaces tests
