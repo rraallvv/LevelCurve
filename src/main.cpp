@@ -26,6 +26,7 @@ float surface3(Vec2 p) {
 	return cos(x/100+y/150+t);
 }
 
+// GLUT functions
 void idle() {
 	glutPostRedisplay();
 }
@@ -80,6 +81,7 @@ void motion ( int x, int y ) {
 
 Quadtree *gCurve;
 
+// main
 int main(int argc, char * argv[]) {
 	
 	glutInit(&argc, argv);
@@ -103,4 +105,3 @@ int main(int argc, char * argv[]) {
 	glutMainLoop();
 	return 0;
 }
-
